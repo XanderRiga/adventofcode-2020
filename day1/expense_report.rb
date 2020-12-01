@@ -9,38 +9,26 @@
 
 module Day1
   class ExpenseReport
-    def pair
-      sorted = load_file.sort
-      sorted.each do |first_entry|
-        sorted.reverse.each do |second_entry|
-          if (first_entry + second_entry) == 2020
-            return first_entry * second_entry
-          end
-        end
-      end
+    def pairs
+      pair = load_file.combination(2).find { |x, y| x + y == 2020 }
+      pair[0] * pair[1]
     end
 
     def triples
-      sorted = load_file.sort
-      sorted.each do |first_entry|
-        sorted.each do |second_entry|
-          sorted.each do |third_entry|
-            if first_entry + second_entry + third_entry == 2020
-              return first_entry * second_entry * third_entry
-            end
-          end
-        end
-      end
+      pair = load_file.combination(3).find { |x, y, z| x + y + z == 2020 }
+      pair[0] * pair[1] * pair[2]
     end
 
     def load_file
-      values = []
+      return @values if @values
+
+      @values = []
       File.open('./day1/input.txt', 'r') do |f|
         f.each_line do |line|
-          values << Integer(line)
+          @values << Integer(line)
         end
       end
-      values
+      @values
     end
   end
 end
