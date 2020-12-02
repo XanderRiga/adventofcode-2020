@@ -39,6 +39,10 @@ module Day2
     end
   end
 
+  # The format is 1-4 b: bbbc where 1 is min_occurrences, 4 is max occurrences,
+  # b is value and bbbc is password.
+  # For part 1, min occurrences is treated as the minimum amount of occurrences,
+  # but in part 2 it is the first index of the value. Same with max.
   class CorruptedPassword
     attr_reader :min_occurrences, :max_occurrences, :value, :password
 
