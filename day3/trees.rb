@@ -9,16 +9,13 @@ module Day3
       height = tree_matrix.length
 
       trees = 0
-      while y <= (height - 1) do
+      while y <= (height - 1)
         trees += 1 if tree_matrix[y][x] == '#'
 
         x += traverse_x
         y += traverse_y
 
         x -= (width + 1) if x > width
-
-        puts "X: #{x}"
-        puts "Y: #{y}"
       end
 
       trees
