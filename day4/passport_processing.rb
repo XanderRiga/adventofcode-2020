@@ -28,36 +28,19 @@ module Day4
     def field_valid?(field, value)
       case field
       when 'byr'
-        int_value = value.to_i
-        int_value >= 1920 && int_value <= 2002
+        byr_valid?(value)
       when 'iyr'
-        int_value = value.to_i
-        int_value >= 2010 && int_value <= 2020
+        iyr_valid?(value)
       when 'eyr'
-        int_value = value.to_i
-        int_value >= 2020 && int_value <= 2030
+        eyr_valid?(value)
       when 'hgt'
-        unit = value.chars.last(2).join
-        return false unless height_units.include?(unit)
-
-        num = value[0...-2].to_i
-        if unit == 'cm'
-          num >= 150 && num <= 193
-        elsif unit == 'in'
-          num >= 59 && num <= 76
-        end
+        hgt_valid?(value)
       when 'hcl'
-        hash = value[0]
-        return false unless hash == '#'
-
-        characters = value[1..-1]
-        return false if characters.length != 6
-
-        characters.count('^ABCDEFabcdef0-9').zero?
+        hcl_valid?(value)
       when 'ecl'
-        eye_colors.include?(value)
+        ecl_valid?(value)
       when 'pid'
-        value.length == 9 && value.count('^0-9').zero?
+        pid_valid?(value)
       when 'cid'
         true
       else
@@ -65,6 +48,51 @@ module Day4
       end
     rescue StandardError
       false
+    end
+
+    def byr_valid?(value)
+      int_value = value.to_i
+      int_value >= 1920 && int_value <= 2002
+    end
+
+    def iyr_valid?(value)
+      int_value = value.to_i
+      int_value >= 2010 && int_value <= 2020
+    end
+
+    def eyr_valid?(value)
+      int_value = value.to_i
+      int_value >= 2020 && int_value <= 2030
+    end
+
+    def hgt_valid?(value)
+      unit = value.chars.last(2).join
+      return false unless height_units.include?(unit)
+
+      num = value[0...-2].to_i
+      if unit == 'cm'
+        num >= 150 && num <= 193
+      elsif unit == 'in'
+        num >= 59 && num <= 76
+      end
+    end
+
+    def hcl_valid?(value)
+      hash = value[0]
+      return false unless hash == '#'
+
+      characters = value[1..-1]
+      return false if characters.length != 6
+
+      characters.count('^ABCDEFabcdef0-9').zero?
+    end
+
+    def ecl_valid?(value)
+      eye_colors.include?(value)
+    end
+
+    def pid_valid?(value)
+      value.length == 9 && value.count('^0-9').zero?
     end
 
     def height_units
