@@ -46,7 +46,7 @@ module Day4
       else
         false
       end
-    rescue StandardError
+    rescue StandardError # Just in case a `.to_i` fails or something like that
       false
     end
 
