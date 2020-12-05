@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-#
+
 require './day4/passport_processing'
 
 processor = Day4::PassportProcessing.new
