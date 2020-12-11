@@ -26,8 +26,8 @@ module Day10
       ways = [0] * p2_adapters.size
       ways[0] = 1
 
-      for i in (1...p2_adapters.size) do
-        for j in (1..3) do
+      (1...p2_adapters.size).each do |i|
+        (1..3).each do |j|
           if i - j >= 0
             if p2_adapters[i] - p2_adapters[i - j] <= 3
               ways[i] += ways[i - j]
