@@ -55,13 +55,179 @@ module Day11
     end
 
     def from_occupied_part_2(matrix, row, col)
-      return 'L' if all_adjacent_values(matrix, row, col).select { |val| val == '#' }.count >= 4
+      return 'L' if first_seat_in_all_directions(matrix, row, col).select { |val| val == '#' }.count >= 5
       '#'
     end
 
     def from_empty_part_2(matrix, row, col)
-      return '#' unless all_adjacent_values(matrix, row, col).include?('#')
+      return '#' unless first_seat_in_all_directions(matrix, row, col).include?('#')
       'L'
+    end
+
+    def first_seat_in_all_directions(matrix, start_row, start_col)
+      visible_seats = []
+
+      curr_row = start_row - 1
+      curr_col = start_col - 1
+      while true
+        if inside_matrix_bounds?(matrix, curr_row, curr_col)
+          if matrix[curr_row][curr_col] == 'L'
+            visible_seats << 'L'
+            break
+          elsif matrix[curr_row][curr_col] == '#'
+            visible_seats << '#'
+            break
+          end
+
+          curr_row = curr_row - 1
+          curr_col = curr_col - 1
+        else
+          visible_seats << '.'
+          break
+        end
+      end
+
+      curr_row = start_row
+      curr_col = start_col - 1
+      while true
+        if inside_matrix_bounds?(matrix, curr_row, curr_col)
+          if matrix[curr_row][curr_col] == 'L'
+            visible_seats << 'L'
+            break
+          elsif matrix[curr_row][curr_col] == '#'
+            visible_seats << '#'
+            break
+          end
+
+          curr_col = curr_col - 1
+        else
+          visible_seats << '.'
+          break
+        end
+      end
+
+      curr_row = start_row - 1
+      curr_col = start_col
+      while true
+        if inside_matrix_bounds?(matrix, curr_row, curr_col)
+          if matrix[curr_row][curr_col] == 'L'
+            visible_seats << 'L'
+            break
+          elsif matrix[curr_row][curr_col] == '#'
+            visible_seats << '#'
+            break
+          end
+
+          curr_row = curr_row - 1
+        else
+          visible_seats << '.'
+          break
+        end
+      end
+
+      curr_row = start_row + 1
+      curr_col = start_col
+      while true
+        if inside_matrix_bounds?(matrix, curr_row, curr_col)
+          if matrix[curr_row][curr_col] == 'L'
+            visible_seats << 'L'
+            break
+          elsif matrix[curr_row][curr_col] == '#'
+            visible_seats << '#'
+            break
+          end
+
+          curr_row = curr_row + 1
+        else
+          visible_seats << '.'
+          break
+        end
+      end
+
+      curr_row = start_row + 1
+      curr_col = start_col + 1
+      while true
+        if inside_matrix_bounds?(matrix, curr_row, curr_col)
+          if matrix[curr_row][curr_col] == 'L'
+            visible_seats << 'L'
+            break
+          elsif matrix[curr_row][curr_col] == '#'
+            visible_seats << '#'
+            break
+          end
+
+          curr_row = curr_row + 1
+          curr_col = curr_col + 1
+        else
+          visible_seats << '.'
+          break
+        end
+      end
+
+      curr_row = start_row
+      curr_col = start_col + 1
+      while true
+        if inside_matrix_bounds?(matrix, curr_row, curr_col)
+          if matrix[curr_row][curr_col] == 'L'
+            visible_seats << 'L'
+            break
+          elsif matrix[curr_row][curr_col] == '#'
+            visible_seats << '#'
+            break
+          end
+
+          curr_col = curr_col + 1
+        else
+          visible_seats << '.'
+          break
+        end
+      end
+
+      curr_row = start_row - 1
+      curr_col = start_col + 1
+      while true
+        if inside_matrix_bounds?(matrix, curr_row, curr_col)
+          if matrix[curr_row][curr_col] == 'L'
+            visible_seats << 'L'
+            break
+          elsif matrix[curr_row][curr_col] == '#'
+            visible_seats << '#'
+            break
+          end
+
+          curr_row = curr_row - 1
+          curr_col = curr_col + 1
+        else
+          visible_seats << '.'
+          break
+        end
+      end
+
+      curr_row = start_row + 1
+      curr_col = start_col - 1
+      while true
+        if inside_matrix_bounds?(matrix, curr_row, curr_col)
+          if matrix[curr_row][curr_col] == 'L'
+            visible_seats << 'L'
+            break
+          elsif matrix[curr_row][curr_col] == '#'
+            visible_seats << '#'
+            break
+          end
+
+          curr_row = curr_row + 1
+          curr_col = curr_col - 1
+        else
+          visible_seats << '.'
+          break
+        end
+      end
+
+      visible_seats
+    end
+
+    def inside_matrix_bounds?(matrix, row, col)
+      row >= 0 && col >= 0 && row <= matrix.length - 1 && col <= matrix[0].length - 1
     end
 
     def perform_part_1_action(start_matrix)
