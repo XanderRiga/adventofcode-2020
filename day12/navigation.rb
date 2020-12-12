@@ -14,6 +14,8 @@ module Day12
   end
 
   class Instruction
+    attr_reader :action, :value
+
     def initialize(action, value)
       @action = action
       @value = value
